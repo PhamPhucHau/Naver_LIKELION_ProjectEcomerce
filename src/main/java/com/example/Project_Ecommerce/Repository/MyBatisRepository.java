@@ -17,7 +17,7 @@ public interface MyBatisRepository {
     @Select("SELECT * FROM PRODUCT WHERE PRICE =#{price}")
     @Results(value={@Result(property = "product_id",column = "PRODUCT_ID"),@Result(property = "product_name",column = "PRODUCT_NAME"),@Result(property = "type",column = "TYPE"),@Result(property = "size",column = "SIZE"),@Result(property = "price",column = "PRICE")})
     List< ProductDTO> getAllProductEqual(BigDecimal price);
-    @Select("SELECT PRODUCT.*, CI.*  FROM PRODUCT P JOIN CART_ITEM CI ON P.PRODUCT_ID=C.PRODUCT_ID, CUSTOMER C WHERE C.CUSTOMER_ID=#{customer_id} AND P.PRODUCT_NAME LIKE %#{name_product}%   ORDER BY P.PRODUCT_NAME LIMIT #{limit} OFFSET #{Offset}")
+    @Select("SELECT P.*, CI.*  FROM PRODUCT  P JOIN CART_ITEM CI ON P.PRODUCT_ID=CI.PRODUCT_ID, CUSTOMER C WHERE C.CUSTOMER_ID=#{customer_id} AND P.PRODUCT_NAME = #{name_product}   ORDER BY P.PRODUCT_NAME LIMIT #{limit} OFFSET #{Offset}")
     @Results(value = {@Result(property ="product_id" ,column ="PRODUCT_ID" ),
             @Result(property ="type" ,column ="TYPE" ),
             @Result(property ="product_name" ,column ="PRODUCT_NAME" ),

@@ -1,9 +1,13 @@
 package com.example.Project_Ecommerce.entity.DTO;
 
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class ProductDTO {
     private long product_id;
     private String product_name;

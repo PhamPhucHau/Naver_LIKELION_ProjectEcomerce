@@ -1,10 +1,12 @@
 package com.example.Project_Ecommerce.entity.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class CartItemProductDTO {

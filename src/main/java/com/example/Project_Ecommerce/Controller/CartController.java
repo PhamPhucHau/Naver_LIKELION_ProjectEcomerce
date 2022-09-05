@@ -6,27 +6,33 @@ import com.example.Project_Ecommerce.entity.CartItemKey;
 import com.example.Project_Ecommerce.entity.DTO.ItemDTO;
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-
-@RequestMapping(name="cart")
+@RestController
+@RequestMapping("cart")
 public class CartController {
     @Autowired
     Cart_ItemService cart_itemService;
-    @GetMapping("/addItemToCart/{customerId}")
+    @PostMapping ("/addItemToCart/{customerId}")
     public ResponseEntity<List<String>> addItemToCart(@PathVariable("customerId") long customerId, @RequestBody List<ItemDTO> listItem)
     {
-        List<String> response=null;
-        for(ItemDTO itemDTO:listItem)
-        {
-            response.add(cart_itemService.updateItemDTO(customerId,itemDTO).getBody());
+        List<String> response = new ArrayList<>();
+        try {
+
+            for (ItemDTO itemDTO : listItem) {
+                response.add(cart_itemService.updateItemDTO(customerId, itemDTO).getBody());
+            }
+            return ResponseEntity.status(HttpStatus.OK).body((response));
         }
-        return ResponseEntity.ok().body(response);
+        catch (Exception e)
+        {
+            response.add(e.getMessage());
+            return ResponseEntity.status(HttpStatus.OK).body((response));
+        }
     }
 
 }

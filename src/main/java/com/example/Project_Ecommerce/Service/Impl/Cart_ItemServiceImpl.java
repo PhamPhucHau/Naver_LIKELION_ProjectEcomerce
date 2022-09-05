@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -74,11 +73,13 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
                 cart_item.UpdateQuantity_wished(itemDTO.getQuantity());
             }
             Cart_Item cart_item_update= cart_itemRepository.save(cart_item);
+
             return ResponseEntity.status(HttpStatus.OK).body("Success"+cart_item_update.toString());
         }
         @Override
-    public ResponseEntity<List<CartItemProductDTO>> getItemOfCart(long customerId, InfoCartItem infoCartItem )
+    public ResponseEntity<?> getItemOfCart(long customerId, InfoCartItem infoCartItem )
     {
-        return ResponseEntity.ok().body(myBatisRepository.getCartItemProduct(customerId,infoCartItem.getNameOfProduct(),infoCartItem.getOffset(), infoCartItem.getLimit()));
+        List<CartItemProductDTO> listCartItemProduct=myBatisRepository.getCartItemProduct(customerId,infoCartItem.getNameOfProduct(),infoCartItem.getOffset(),infoCartItem.getLimit());
+        return ResponseEntity.ok().body(listCartItemProduct);
     }
 }

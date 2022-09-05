@@ -44,7 +44,11 @@ public class Cart_Item  {
     private Product product;
     public void UpdateQuantity_wished(long quantity_wished)
     {
+        Date date=new Date();
+        this.date_added=date;
+        BigDecimal oldQuantity=new BigDecimal(this.quantity_wished);
+        BigDecimal price=this.total_amount.divide(oldQuantity);
         this.quantity_wished+=quantity_wished;
-        this.total_amount=product.getPrice().multiply(new BigDecimal(this.quantity_wished));
+        this.total_amount=price.multiply(new BigDecimal(this.quantity_wished));
     }
 }

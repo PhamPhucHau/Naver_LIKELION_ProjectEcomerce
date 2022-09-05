@@ -3,6 +3,7 @@ package com.example.Project_Ecommerce.entity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.util.Collection;
 @Data
 @Getter
 @Setter
+
 public class Product {
     @Id
     @GeneratedValue
